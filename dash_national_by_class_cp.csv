@@ -1,0 +1,4 @@
+crowding_class,n_conditions,damage_rate_pct
+Crowded (two thirds full or more),22793,25.9
+Open (under one third full),64732,22.1
+In between,61079,27.5
