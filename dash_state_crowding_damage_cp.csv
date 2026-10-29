@@ -1,48 +1,48 @@
-state,abb,n_plots,plots_crowded_pct,damage_open_pct,damage_crowded_pct,diff_points,diff_lo_points,diff_hi_points,signal,top_cause,top_cause_share,small_sample
-Alabama,AL,4069,20.2,20.4,24.1,3.6,0.4,6.8,higher in crowded,Fire,53,False
-Arkansas,AR,3018,28.6,12.4,19.9,7.5,4.4,10.6,higher in crowded,Storms and drought,61,False
-Arizona,AZ,1168,23.3,14.4,12.1,-2.3,-6.7,2.6,no clear difference,Fire,50,False
-California,CA,2506,16.2,31.4,36.4,5.0,-0.2,10.3,no clear difference,Fire,36,False
-Colorado,CO,1593,39.5,29.5,40.1,10.6,5.7,15.2,higher in crowded,Insects,62,False
-Connecticut,CT,194,39.7,16.2,22.1,5.8,-5.5,17.0,too few plots,Insects,50,True
-Delaware,DE,80,28.8,7.0,4.4,-2.7,-12.1,8.4,too few plots,Storms and drought,50,True
-Florida,FL,2501,19.9,32.6,37.6,5.0,0.1,9.3,higher in crowded,Fire,50,False
-Georgia,GA,5074,20.9,24.8,32.1,7.3,4.0,10.2,higher in crowded,Fire,46,False
-Iowa,IA,441,9.8,44.0,34.9,-9.1,-24.4,6.5,too few plots,Animals,45,True
-Idaho,ID,1039,23.6,25.4,43.3,17.8,10.7,25.1,higher in crowded,Fire,36,False
-Illinois,IL,664,13.7,24.4,30.8,6.3,-3.6,16.5,too few plots,Storms and drought,47,True
-Indiana,IN,788,17.8,36.1,47.9,11.8,3.1,20.8,higher in crowded,Insects,55,False
-Kansas,KS,418,6.2,45.9,61.5,15.6,-4.9,33.2,too few plots,Animals,73,True
-Kentucky,KY,1772,20.4,32.0,43.5,11.5,5.9,18.1,higher in crowded,Storms and drought,35,False
-Louisiana,LA,1804,18.2,17.5,22.9,5.4,0.4,10.4,higher in crowded,Storms and drought,56,False
-Massachusetts,MA,353,39.7,23.0,29.3,6.3,-3.7,15.3,no clear difference,Insects,31,False
-Maryland,MD,254,35.4,10.4,13.3,3.0,-5.3,11.4,too few plots,Competing vegetation,30,True
-Maine,ME,2307,46.9,13.8,25.4,11.6,8.3,15.0,higher in crowded,Disease,38,False
-Michigan,MI,5463,33.6,16.4,16.0,-0.4,-2.5,1.5,no clear difference,Insects,50,False
-Minnesota,MN,5662,22.4,20.0,19.3,-0.7,-3.2,1.8,no clear difference,Storms and drought,32,False
-Missouri,MO,2179,33.2,39.5,28.4,-11.1,-15.3,-6.8,lower in crowded,Animals,54,False
-Mississippi,MS,3196,24.0,12.1,16.3,4.2,1.4,7.0,higher in crowded,Fire,64,False
-Montana,MT,1615,33.6,23.3,40.2,16.9,12.2,21.8,higher in crowded,Insects,53,False
-North Carolina,NC,3237,24.2,16.8,22.8,6.0,2.8,9.5,higher in crowded,Storms and drought,33,False
-North Dakota,ND,145,15.9,63.9,60.9,-3.1,-24.0,19.2,too few plots,Animals,70,True
-Nebraska,NE,228,5.7,71.2,92.3,21.1,1.8,33.5,too few plots,Animals,81,True
-New Hampshire,NH,634,62.3,11.3,26.1,14.8,8.0,20.7,higher in crowded,Disease,78,False
-New Jersey,NJ,295,40.3,22.7,20.2,-2.6,-12.5,7.0,no clear difference,Insects,39,False
-New Mexico,NM,815,32.1,13.6,21.8,8.2,2.4,14.0,higher in crowded,Insects,38,False
-Nevada,NV,472,43.6,17.3,12.1,-5.2,-11.6,1.9,no clear difference,Disease,35,False
-New York,NY,2030,42.5,18.4,29.9,11.5,7.6,15.4,higher in crowded,Disease,52,False
-Ohio,OH,1159,17.7,55.7,53.2,-2.5,-9.5,5.3,no clear difference,Insects,43,False
-Oklahoma,OK,910,29.7,33.8,38.2,4.4,-2.7,11.4,no clear difference,Fire,41,False
-Oregon,OR,5048,18.4,25.2,30.4,5.2,1.8,8.4,higher in crowded,Disease,44,False
-Pennsylvania,PA,2067,38.6,21.0,27.8,6.9,2.9,10.4,higher in crowded,Insects,45,False
-Rhode Island,RI,70,34.3,10.9,41.7,30.8,8.6,51.5,too few plots,Insects,91,True
-South Carolina,SC,2557,22.8,16.4,26.4,10.0,5.9,13.9,higher in crowded,Fire,53,False
-South Dakota,SD,266,12.8,73.7,58.8,-14.9,-31.2,2.2,too few plots,Animals,73,True
-Tennessee,TN,2554,27.4,16.1,20.1,4.0,0.8,7.4,higher in crowded,Insects,38,False
-Texas,TX,3894,15.0,14.1,25.0,10.9,7.2,14.5,higher in crowded,Storms and drought,60,False
-Utah,UT,1247,37.7,14.5,11.5,-3.0,-7.1,0.6,no clear difference,Insects,38,False
-Virginia,VA,2734,38.6,15.2,20.1,4.9,1.9,7.9,higher in crowded,Insects,38,False
-Vermont,VT,544,57.9,11.4,38.4,27.1,20.7,33.8,higher in crowded,Disease,85,False
-Washington,WA,2850,22.8,31.7,38.2,6.5,2.0,10.8,higher in crowded,Disease,39,False
-Wisconsin,WI,5183,20.5,14.9,13.7,-1.1,-3.4,1.3,no clear difference,Disease,35,False
-West Virginia,WV,428,25.9,28.7,27.9,-0.8,-11.5,9.5,no clear difference,Insects,46,False
+state,abb,n_plots,n_conditions,plots_crowded_pct,damage_open_pct,damage_crowded_pct,diff_points,diff_lo_points,diff_hi_points,signal,top_cause,top_cause_share,n_open,n_crowded,small_sample
+Alabama,AL,4537,6309,13.0,20.4,24.1,3.6,0.4,6.8,higher in crowded,Fire,53,3246,823,False
+Arizona,AZ,2682,2768,9.8,14.4,12.1,-2.3,-6.7,2.6,no clear difference,Fire,50,896,272,False
+Arkansas,AR,3558,4797,18.0,12.4,19.9,7.5,4.4,10.6,higher in crowded,Weather,61,2155,863,False
+California,CA,4725,5267,7.7,31.3,36.4,5.0,-0.2,10.3,no clear difference,Fire,36,2099,407,False
+Colorado,CO,2803,3039,20.7,29.5,40.1,10.6,5.7,15.2,higher in crowded,Insects,62,964,629,False
+Connecticut,CT,305,353,21.8,16.2,22.1,5.8,-5.5,17.0,too few plots,Insects,51,117,77,True
+Delaware,DE,122,140,16.4,7.0,4.3,-2.7,-12.1,8.4,too few plots,Weather,50,57,23,True
+Florida,FL,3125,3983,12.5,32.6,37.6,5.0,0.1,9.3,higher in crowded,Fire,50,2004,497,False
+Georgia,GA,5388,7661,13.8,24.8,32.1,7.3,4.0,10.2,higher in crowded,Fire,46,4015,1059,False
+Idaho,ID,1951,2110,11.6,25.4,43.3,17.8,10.7,25.1,higher in crowded,Fire,36,794,245,False
+Illinois,IL,1043,1224,7.4,24.4,30.8,6.3,-3.6,16.5,too few plots,Weather,47,573,91,True
+Indiana,IN,1238,1460,9.6,36.1,47.9,11.7,3.1,20.8,higher in crowded,Insects,55,648,140,False
+Iowa,IA,639,742,5.8,44.0,34.9,-9.1,-24.4,6.5,too few plots,Animals,45,398,43,True
+Kansas,KS,544,643,4.0,45.9,61.5,15.6,-4.9,33.2,too few plots,Animals,73,392,26,True
+Kentucky,KY,2196,2879,12.5,32.0,43.5,11.5,5.9,18.1,higher in crowded,Weather,35,1411,361,False
+Louisiana,LA,2379,2964,11.1,17.5,22.9,5.4,0.4,10.4,higher in crowded,Weather,56,1476,328,False
+Maine,ME,2997,3598,30.0,13.8,25.3,11.6,8.3,15.0,higher in crowded,Disease,37,1226,1081,False
+Maryland,MD,418,480,18.8,10.4,13.3,3.0,-5.3,11.5,too few plots,Competing plants,30,164,90,True
+Massachusetts,MA,515,603,23.2,23.0,29.3,6.3,-3.7,15.3,no clear difference,Insects,32,213,140,False
+Michigan,MI,7411,9057,20.3,16.4,16.0,-0.4,-2.5,1.5,no clear difference,Insects,50,3625,1838,False
+Minnesota,MN,6421,8564,14.8,20.0,19.3,-0.7,-3.2,1.8,no clear difference,Weather,32,4393,1269,False
+Mississippi,MS,3973,5258,14.6,12.1,16.3,4.2,1.4,7.0,higher in crowded,Fire,64,2430,766,False
+Missouri,MO,3244,3844,18.8,39.5,28.4,-11.1,-15.3,-6.8,lower in crowded,Animals,54,1456,723,False
+Montana,MT,2623,2849,19.0,23.3,40.2,16.9,12.2,21.8,higher in crowded,Insects,53,1073,542,False
+Nebraska,NE,312,353,3.7,71.2,92.3,21.1,1.8,33.5,too few plots,Animals,81,215,13,True
+Nevada,NV,1059,1089,18.9,17.3,12.1,-5.2,-11.5,1.9,no clear difference,Disease,35,266,206,False
+New Hampshire,NH,919,1033,38.2,11.3,26.1,14.8,8.0,20.7,higher in crowded,Disease,77,239,395,False
+New Jersey,NJ,410,479,24.8,22.7,20.2,-2.6,-12.5,7.0,no clear difference,Insects,40,176,119,False
+New Mexico,NM,1607,1686,15.5,13.6,21.8,8.2,2.4,14.0,higher in crowded,Insects,38,553,262,False
+New York,NY,3159,3579,24.1,18.4,29.9,11.5,7.6,15.4,higher in crowded,Disease,52,1167,863,False
+North Carolina,NC,3726,5089,15.4,16.8,22.8,6.0,2.8,9.5,higher in crowded,Weather,33,2453,784,False
+North Dakota,ND,195,213,10.8,63.9,60.9,-3.1,-24.0,19.1,too few plots,Animals,70,122,23,True
+Ohio,OH,1659,1995,10.3,55.7,53.2,-2.5,-9.5,5.3,no clear difference,Insects,43,954,205,False
+Oklahoma,OK,1207,1456,18.5,33.8,38.1,4.4,-2.7,11.4,no clear difference,Fire,41,640,270,False
+Oregon,OR,8584,10058,9.3,25.2,30.4,5.2,1.8,8.4,higher in crowded,Disease,44,4117,931,False
+Pennsylvania,PA,3120,3603,22.1,21.0,27.8,6.9,2.9,10.4,higher in crowded,Insects,46,1269,798,False
+Rhode Island,RI,110,120,20.0,10.9,41.7,30.8,8.6,51.5,too few plots,Insects,93,46,24,True
+South Carolina,SC,2756,3893,15.0,16.4,26.4,10.0,5.9,13.9,higher in crowded,Fire,53,1973,584,False
+South Dakota,SD,367,408,8.3,73.7,58.8,-14.9,-31.2,2.2,too few plots,Animals,73,232,34,True
+Tennessee,TN,3108,4133,16.9,16.1,20.1,4.0,0.8,7.4,higher in crowded,Insects,38,1854,700,False
+Texas,TX,5279,6157,9.5,14.1,25.0,10.9,7.2,14.5,higher in crowded,Weather,60,3310,584,False
+Utah,UT,2722,2833,16.6,14.5,11.5,-3.1,-7.1,0.6,no clear difference,Insects,38,777,470,False
+Vermont,VT,859,975,32.3,11.4,38.4,27.1,20.7,33.8,higher in crowded,Disease,85,229,315,False
+Virginia,VA,3339,4396,24.0,15.2,20.1,4.9,1.9,7.9,higher in crowded,Insects,38,1678,1056,False
+Washington,WA,4774,5558,11.7,31.7,38.2,6.5,2.0,10.9,higher in crowded,Disease,39,2201,649,False
+West Virginia,WV,557,614,18.1,28.7,27.9,-0.8,-11.5,9.5,no clear difference,Insects,42,317,111,False
+Wisconsin,WI,6370,8292,12.8,14.9,13.7,-1.1,-3.4,1.3,no clear difference,Disease,35,4119,1064,False
