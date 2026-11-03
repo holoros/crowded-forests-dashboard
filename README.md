@@ -2,19 +2,19 @@
 
 Companion dashboard to a Conversation US article by Aaron Weiskittel, Adam Daigneault, and Christopher Woodall (University of Maine, CTrees), November 2026.
 
-A single static page (`index.html`) with the data inlined and d3 7.9.0 vendored, so it serves from GitHub Pages with no build step. The same page runs as a Claude dashboard artifact; this copy is the public mirror.
+A single static page (`index.html`) with the data inlined and d3 7.9.0 vendored, so it serves from GitHub Pages with no build step.
 
-## Data
+## Data (updated November 3, 2026)
 
-- `dash_state_crowding_damage_cp.csv`: 47 lower 48 states. Columns: `n_plots` and `n_conditions` (all remeasured plots and conditions in the state), `plots_crowded_pct` (share of conditions with relative density at or above two thirds at the first visit), `damage_open_pct` and `damage_crowded_pct` (share of open, under one third, and crowded conditions with any recorded disturbance by the next visit), `diff_points` with a 1,000 draw plot clustered bootstrap range (`diff_lo_points`, `diff_hi_points`), `signal` (higher in crowded, no clear difference, lower in crowded, or too few plots when either class has under 100 conditions), `top_cause` and `top_cause_share` (the agent recorded most often among the state's damaged conditions), `n_open`, `n_crowded`, `small_sample`. Relative density is measured over the area each stand occupies (the condition area basis of the preprint below).
-- `dash_national_by_class_cp.csv`: the same by crowding class for the lower 48, 148,604 conditions.
-- `dash_carbon_context.csv`: five published carbon findings the article cites, with sources.
+- `dash_state_crowding_damage_subplot.csv`: 48 lower 48 states. Each remeasured Forest Inventory and Analysis plot visit is one sample, with crowding (relative density, stand density index over its site maximum) averaged over the plot's four fixed-area subplots at the earlier visit. Columns: `n_plots`, `n_conditions` (here the number of remeasured plot visits; the column name is kept for the page code), `plots_crowded_pct` (share of plot visits with relative density of 0.6 or more), `damage_open_pct` and `damage_crowded_pct` (share of open, under 0.35, and crowded, 0.6 or more, plot visits with any recorded natural disturbance by the next visit), `diff_points` with a 95% normal approximation range (`diff_lo_points`, `diff_hi_points`), `signal` (higher in crowded, no clear difference, lower in crowded, or too few plots when either class has under 100 plot visits), `top_cause` and `top_cause_share` (the agent recorded most often among the state's disturbed plot visits), `n_open`, `n_crowded`, `small_sample`.
+- `dash_national_by_class_subplot.csv`: the same by crowding class for the lower 48, 228,797 plot visits, 1999 to 2026.
+- `dash_carbon_context.csv`: published findings the article cites, with sources.
 
-Computed on OSC Cardinal from the preprint's analysis table (148,604 conditions on 121,035 plots), October 29, 2026 (SLURM job 15979164 for the bootstrap, an interactive run for totals and causes; scripts in the Zenodo companion record). Raw condition shares, not design based estimates, and not adjusted for stand size, height, or forest type. Preliminary, not yet peer reviewed. No plot coordinates or identifiers are included.
+Raw shares, not design-based estimates, and not adjusted for forest type, age, or location. The adjusted results are in the study's code and summary record, doi 10.5281/zenodo.23886182. Not yet peer reviewed. No plot coordinates or identifiers are included. The earlier condition-area files (`*_cp.csv`) are superseded and kept only for the record.
 
 ## Source
 
-Weiskittel, A.R., Chivhenge, E., Woodall, C.W., D'Amato, A.W., Daigneault, A. (2026). Forest density tracks the agent of disturbance more consistently than its risk across the United States. Preprint, version 1, October 26, 2026. doi 10.5281/zenodo.23673229.
+Weiskittel, A.R., Chivhenge, E., Woodall, C.W., D'Amato, A.W., Daigneault, A. (2026). Data and code: relative density and forest disturbance on the FIA subplot design (conterminous United States, 1999 to 2026). Zenodo, doi 10.5281/zenodo.23886182.
 
 ## License
 
