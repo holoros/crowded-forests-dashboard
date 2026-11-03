@@ -1,0 +1,4 @@
+crowding_class,n_conditions,damage_rate_pct
+Crowded (past 60% full),86716,19.49
+Open (under 35% full),41506,15.48
+In between,100575,19.82
