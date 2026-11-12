@@ -32,9 +32,10 @@ Added the annual risk curve, the agent chart, a third map view (yearly chance of
 
 ## Growth and crowding (added November 12, 2026)
 
-The page also shows where tree growth levels off as forests fill up, from a manuscript in preparation (Chivhenge, Weiskittel, Ray, Woodall, D'Amato, and Daigneault; code and aggregated estimates at doi 10.5281/zenodo.23397937). Not yet peer reviewed.
+The page also shows where growth after tree deaths levels off as forests fill up, from a manuscript in preparation (Chivhenge, Weiskittel, Ray, Woodall, D'Amato, and Daigneault; code and aggregated estimates at doi 10.5281/zenodo.23397937). Not yet peer reviewed.
 
 - `dash_growth_curve_national.csv`: yearly gross (`g`) and net (`n`) aboveground carbon growth, in metric tons of carbon per hectare per year, by relative density (`rd`), each with a 95% whole-plot bootstrap interval (`_lo`, `_hi`). Lower 48 states, unharvested plots.
-- `dash_growth_optimum_region.csv`: the relative density at which net growth levels off in each region (`rd_opt`, with `lo` and `hi` for the 95% interval), the share of unharvested plots above it at their latest visit (`share_above`), the number of plots, and the share of gross growth lost to mortality at that point (`mort_share`).
+- `dash_growth_optimum_region.csv`: the relative density at which growth after tree deaths (net growth) levels off in each region (`rd_opt`, with `lo` and `hi` for the 95% interval), the share of unharvested plots above it at their latest visit (`share_above`), the number of plots, and the share of gross growth lost to mortality at that point (`mort_share`).
+- `dash_growth_hex_optimum.csv`: for each 60 km hexagon with at least 20 unharvested plots (`n_plots`), the hexagon centroid in EPSG:5070 metres (`x_m`, `y_m`), the median of latest plot relative density minus the leveling point of the plot's region (`med_diff`), and the share of plots above it (`share_above`). Plots were assigned to hexagons from public FIA coordinates.
 
-Both files are aggregates. No plot locations are shown or included.
+All three files are aggregates. No plot locations are shown or included.
