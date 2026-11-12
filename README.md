@@ -29,3 +29,12 @@ Code MIT, data and text CC BY 4.0.
 ## Page revision, November 12, 2026
 
 Added the annual risk curve, the agent chart, a third map view (yearly chance of damage), state risk and carbon columns, and a methods panel; replaced the between-visit adjusted figures in the national panel with the annual model; set type and color from the Weiskittel Lab design system (Libre Franklin, Source Sans 3, CRSF green). Latest record version 4.3.0, doi 10.5281/zenodo.24147574.
+
+## Growth and crowding (added November 12, 2026)
+
+The page also shows where tree growth levels off as forests fill up, from a manuscript in preparation (Chivhenge, Weiskittel, Ray, Woodall, D'Amato, and Daigneault; code and aggregated estimates at doi 10.5281/zenodo.23397937). Not yet peer reviewed.
+
+- `dash_growth_curve_national.csv`: yearly gross (`g`) and net (`n`) aboveground carbon growth, in metric tons of carbon per hectare per year, by relative density (`rd`), each with a 95% whole-plot bootstrap interval (`_lo`, `_hi`). Lower 48 states, unharvested plots.
+- `dash_growth_optimum_region.csv`: the relative density at which net growth levels off in each region (`rd_opt`, with `lo` and `hi` for the 95% interval), the share of unharvested plots above it at their latest visit (`share_above`), the number of plots, and the share of gross growth lost to mortality at that point (`mort_share`).
+
+Both files are aggregates. No plot locations are shown or included.
