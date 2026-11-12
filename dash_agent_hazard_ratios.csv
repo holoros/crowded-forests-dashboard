@@ -1,0 +1,6 @@
+agent,hazard_ratio_per_0.5_relative_density,lo95,hi95
+Insects,1.6938,1.5954,1.7983
+Weather,1.3108,1.2183,1.4102
+Disease,1.2853,1.2035,1.3727
+Fire,0.9967,0.9348,1.0626
+Animals,0.7174,0.6502,0.7914
