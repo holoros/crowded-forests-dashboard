@@ -1,0 +1,40 @@
+# RUN: rd_dst_ctrn3_20261112
+
+- Date: 2026-11-12
+- Host: firebreather
+- R: R version 4.5.1 (2025-06-13)
+- Packages: DBI 1.3.0, RSQLite 3.53.3, data.table 1.18.6.1
+- Seed: 20261112 (bootstrap B = 2000, whole plot resampling; power simulation 20,000 draws)
+- Wall time (R script): 393 s
+- Design: pre-registered CTRN2 header kept verbatim; CTRN3 extension note (dataset list and treatment mapping) added below it before running.
+- Scripts (md5 of the files that produced the outputs):
+  - 0fec2203537f31abf6102f7852eded5c  2026-11-12_rd-dst-ctrn3-validate.R
+  - 9cf58243ac85d70df6f8f7f01e62299d  run.sh
+- Script md5 when the CTRN3 note was written and the first run started (before any results):
+  - ff65a745c425fc6d52984d50bf0b2871  2026-11-12_rd-dst-ctrn3-validate.R
+  - 9cf58243ac85d70df6f8f7f01e62299d  run.sh
+- Execution change after the first start (only the screening step had finished, no contrast results existed; that run was stopped during the first NS/PSP bootstrap): the bootstrap refit loop apply() was replaced by parallel::mclapply over the same draw matrix (8 cores), bit-identical refits (checked identical() on 40 draws), because the shared server was overloaded; and the eligibility reason text now says no thinning-type treatment records when a dataset has none. Design, seed, draws, data and outputs otherwise unchanged.
+- Source databases (md5):
+  - 9a2e74067fe9378200468b61fe4460aa  ~/gydb2/build/ws/gydb-acadian/data/AFERP/OS/2_Standardized/Standardized.sqlite (screened; not eligible)
+  - ceed4090efa5f887519e027101810f1d  ~/gydb2/build/ws/gydb-acadian/data/BSP/CFI/2_Standardized/Standardized.sqlite (screened; not eligible)
+  - 934e72b00937fdea36632ea6794c51c1  ~/gydb2/build/ws/gydb-acadian/data/FIA/v4.0/2_Standardized/Standardized.sqlite (screened; not eligible)
+  - 0a872948ce56ece5142acf3177c95881  ~/gydb2/build/ws/gydb-acadian/data/HOLT/INV/2_Standardized/Standardized.sqlite (screened; not eligible)
+  - 8be88f1a94716e6de30e8e421afb2693  ~/gydb2/build/ws/gydb-acadian/data/HOWLAND/INV/2_Standardized/Standardized.sqlite (screened; not eligible)
+  - e518fa374c56c40fe3fc894a5ab2c144  ~/gydb2/build/ws/gydb-acadian/data/MNAP/ERN/2_Standardized/Standardized.sqlite (screened; not eligible)
+  - 2d4a4c4a0351d0c982223cf0663f8215  ~/gydb2/build/ws/gydb-acadian/data/NB/CLI/2_Standardized/Standardized.sqlite (analysed)
+  - 7800b27af8897591ce65ebfe4567b037  ~/gydb2/build/ws/gydb-acadian/data/NETN/ACAD/2_Standardized/Standardized.sqlite (screened; not eligible)
+  - e7e7c9269a940e422d4b033d1d23b1fd  ~/gydb2/build/ws/gydb-acadian/data/NFI/GP/2_Standardized/Standardized.sqlite (screened; not eligible)
+  - f06363486541245beb149ee1e8ebfff2  ~/gydb2/build/ws/gydb-acadian/data/NS/PSP/2_Standardized/Standardized.sqlite (analysed)
+  - 5a5320b385735e2b0cec09137de6436c  ~/gydb2/build/ws/gydb-acadian/data/ON/PSPPGP/2_Standardized/Standardized.sqlite (analysed)
+  - 6d75da3629a839023ee401cea44f64b6  ~/gydb2/build/ws/gydb-acadian/data/PEF/CFI/2_Standardized/Standardized.sqlite (analysed)
+  - e9520d279bc29f859883f69902f8ef78  ~/gydb2/build/ws/gydb-acadian/data/PEF/MID/2_Standardized/Standardized.sqlite (screened; not eligible)
+  - 95f282db42b858929bf0c1fa19cb2a08  ~/gydb2/build/ws/gydb-acadian/data/PE/PSP/2_Standardized/Standardized.sqlite (analysed)
+  - 012eb0a4c2c81f95bb9e8c1914a5d789  ~/gydb2/build/ws/gydb-acadian/data/QC/PSP/2_Standardized/Standardized.sqlite (analysed)
+  - 7a691630138d0f17546b570f91151db0  ~/gydb2/build/ws/gydb-acadian/data/SBW/GIS/2_Standardized/Standardized.sqlite (screened; not eligible)
+  - 0a20225eb78792a51e04e141c9fe5e31  ~/gydb2/build/ws/gydb-acadian/data/SILC/CFI/2_Standardized/Standardized.sqlite (screened; not eligible)
+  - NS/RPSP: no 2_Standardized database in the build (screened; not screenable)
+- Outputs: ctrn3_results_DATA.csv, ctrn3_class_means_DATA.csv, ctrn3_shuffle_DATA.csv, ctrn3_dataset_eligibility_DATA.csv, run.log
+- Plot-level span tables stay on firebreather in _plotlevel/ (not exported).
+- Server was shared and heavily loaded during the run (load average about 30 on 8 cores); wall time reflects that.
+- GitHub: holoros/crowded-forests-dashboard, branch dst/rd-decision-support-checks-20261112
+- Zenodo: not applicable
