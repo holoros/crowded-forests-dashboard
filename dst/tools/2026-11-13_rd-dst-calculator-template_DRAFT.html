@@ -12,6 +12,7 @@ textarea{height:110px;font-family:ui-monospace,monospace;font-size:12.5px}.row{d
 .tabs{display:flex;gap:6px;margin-top:8px}.tabs button{flex:1;padding:6px;border:1px solid var(--teal);background:#fff;color:var(--teal);border-radius:6px;cursor:pointer;font:inherit;font-size:13px}.tabs button.on{background:var(--teal);color:#fff}
 .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}@media(max-width:700px){.kpis{grid-template-columns:repeat(2,1fr)}}
 .kpi{border-radius:8px;padding:10px 12px;border:1px solid var(--line);background:#fbfdfd}.kpi b{display:block;font-size:22px}.kpi span{font-size:12px;color:var(--muted)}
+.units{display:flex;gap:8px;align-items:center;margin:0 0 10px}.units label{margin:0}.units select{flex:1}
 .status{margin:12px 0;padding:12px 14px;border-radius:8px;font-weight:600}.st-in{background:#e5f4ea;color:var(--green)}.st-below{background:#e7eef9;color:var(--blue)}.st-above{background:#fbeee2;color:var(--amber)}.st-noceil{background:#eef6f7;color:var(--teal)}.st-na{background:#f6e9e8;color:var(--red)}
 table{width:100%;border-collapse:collapse;margin-top:8px;font-size:13.5px}th,td{padding:6px 8px;text-align:center;vertical-align:middle}thead th{border-top:1.5px solid var(--ink);border-bottom:1px solid var(--ink);font-weight:700}tbody tr:last-child td{border-bottom:1.5px solid var(--ink)}td:first-child,th:first-child{text-align:left}
 .note{font-size:12.5px;color:var(--muted);margin-top:8px}.flag{color:var(--red);font-weight:600}.pill{display:inline-block;padding:1px 7px;border-radius:9px;background:#fbeee2;color:#8a5a12;font-size:11.5px;font-weight:600}
@@ -21,12 +22,13 @@ svg text{font-family:inherit}
 <p>Growth, mortality and disturbance hazard against relative density at the stand's own top height. Engine v2: 276,984 remeasured intervals on 85,821 unharvested US Forest Service FIA plots, region by region, direct net growth fits, 95% whole plot bootstrap intervals (B = 200).</p></header>
 <main>
 <section class="card"><h2>Stand</h2>
+<div class="units"><label for="units">Units</label><select id="units"><option value="us">US customary (ft, in, acres)</option><option value="metric">Metric (m, cm, hectares)</option></select></div>
 <div class="row"><div><label>Region</label><select id="region"></select></div><div><label>Forest type group</label><select id="tg"></select></div></div>
-<div class="row"><div><label>Top height (m)</label><input id="ht" type="number" step="0.5" min="3" max="45"></div><div><label>SDI<sub>max</sub> (metric, D<sub>r</sub> = 25.4 cm)</label><input id="sdimax" type="number" step="10"></div></div>
+<div class="row"><div><label id="l_ht">Top height (m)</label><input id="ht" type="number" step="0.5" min="3" max="45"></div><div><label id="l_sdi">SDI<sub>max</sub> (trees ha⁻¹, D<sub>r</sub> = 25.4 cm)</label><input id="sdimax" type="number" step="10"></div></div>
 <div class="tabs"><button id="m_sum" class="on">Trees and QMD</button><button id="m_list">Tree list</button><button id="m_map">Maine 10 m map</button></div>
 <div id="p_sum"><div class="row"><div><label id="l_n">Trees ha⁻¹</label><input id="n" type="number" value="900"></div><div><label id="l_d">QMD (cm)</label><input id="d" type="number" value="20" step="0.1"></div></div>
 </div>
-<label><input id="imp" type="checkbox" style="width:auto"> Enter trees per acre and inches (both entry modes)</label>
+<input id="imp" type="checkbox" hidden>
 <label><input id="tceil" type="checkbox" style="width:auto"> Use forest type ceilings and tests (smaller samples; off uses the regional band)</label>
 <label id="l_q2">QMD after thinning, if thinning (cm)</label><input id="q2" type="number" step="0.1" placeholder="same as now">
 <div id="p_list" hidden><label id="l_list">One line per class: DBH, trees (same units as the checkbox)</label><textarea id="list">12, 400
@@ -35,14 +37,14 @@ svg text{font-family:inherit}
 32, 60</textarea></div>
 <div id="p_map" hidden><label>Map relative density at the stand (0 to 1)</label><input id="mapv" type="number" step="0.01" value="0.55">
 <p class="note">Measured at 1,541 held-out Maine FIA plot visits (967 plots, true locations): r = 0.53; after calibration (field = −0.054 + 1.05 × map) the error is ±0.16 RMSE, the 95% interval about ±0.31, and the value lands within ±0.05 of the field RD 22% of the time. The map pulls toward the middle: sparse stands read 0.20 to 0.30 high, dense stands 0.15 to 0.17 low. The calculator gives no status or target from a map value.</p></div>
-<p class="note">Relative density = SDI / SDI<sub>max</sub>, SDI = Σ n<sub>i</sub>(D<sub>i</sub>/25.4)<sup>1.605</sup> ha⁻¹. The default SDI<sub>max</sub> is the median for the forest type group in the region; plot values typically run from about 45% below to 50% above it (60% below to 84% above for spruce/fir), so enter a stand value when you have one; the range under the relative density shows the effect.</p>
+<p class="note">Relative density = SDI / SDI<sub>max</sub>, SDI = Σ n<sub>i</sub>(D<sub>i</sub>/25.4)<sup>1.605</sup> ha⁻¹ (in US customary units, trees per acre with D<sub>r</sub> = 10 in, so SDI is 0.4047 times the metric value and relative density is the same). The default SDI<sub>max</sub> is the median for the forest type group in the region; plot values typically run from about 45% below to 50% above it (60% below to 84% above for spruce/fir), so enter a stand value when you have one; the range under the relative density shows the effect.</p>
 </section>
 <section>
 <div class="card"><h2>Result</h2><div class="kpis">
 <div class="kpi"><span>Relative density</span><b id="k_rd">-</b><span id="k_rd2"></span></div>
 <div class="kpi"><span>Target band</span><b id="k_band">-</b><span id="k_band2"></span></div>
-<div class="kpi"><span>Net carbon growth, Mg C ha⁻¹ yr⁻¹</span><b id="k_nc">-</b><span id="k_nc2"></span></div>
-<div class="kpi"><span>Net merch. volume growth, m³ ha⁻¹ yr⁻¹</span><b id="k_nv">-</b><span id="k_nv2"></span></div></div>
+<div class="kpi"><span>Net carbon growth, <span class="u_c">Mg C ha⁻¹ yr⁻¹</span></span><b id="k_nc">-</b><span id="k_nc2"></span></div>
+<div class="kpi"><span>Net merch. volume growth, <span class="u_v">m³ ha⁻¹ yr⁻¹</span></span><b id="k_nv">-</b><span id="k_nv2"></span></div></div>
 <div id="status" class="status">-</div>
 <svg id="chart" viewBox="0 0 760 300" width="100%"></svg>
 <table><thead><tr><th>Quantity</th><th>At this stand</th><th>Mean inside band</th></tr></thead><tbody id="tbl"></tbody></table>
@@ -61,10 +63,34 @@ const TYPESTATS=__TYPESTATS__;  // region|type group: per height floor and ceili
 const LEV={North:0.485,Central:0.400,Southeast:0.385,West:0.405};
 const TG=__TG__;
 const $=id=>document.getElementById(id);let mode="sum";
+const UF={c:1/(0.907185*2.47105),v:35.3147/2.47105,sdi:0.404686,ft:0.3048,inch:2.54};  // Mg C/ha to short tons C/ac = 0.44609; m3/ha to ft3/ac = 14.2913
+let US=false;const UL={c:"Mg C ha⁻¹ yr⁻¹",v:"m³ ha⁻¹ yr⁻¹"};
+const CKEYS=["Ndc","Gc","Mbc","Dcc"],VKEYS=["Ndv"],SKEYS=["floor_contrast","floor_lo","floor_hi"];
+let ORIG=null;
+function snap(){ORIG=JSON.parse(JSON.stringify({CURVES,TYPECURVES,STATS,TYPESTATS}));}
+function scaleSet(dst,src,fac){for(const k in src){const C=src[k];for(const key of Object.keys(C)){const base=key.replace(/_(lo|hi)$/,"");let m=CKEYS.includes(base)?fac.c:VKEYS.includes(base)?fac.v:null;if(m==null)continue;for(const hh in C[key])dst[k][key][hh]=C[key][hh].map(x=>x==null?null:x*m);}}}
+function scaleStats(dst,src,c){for(const k in src)src[k].forEach((s,i)=>SKEYS.forEach(q=>{dst[k][i][q]=s[q]==null?null:s[q]*c;}));}
+function applyUnits(){const fac=US?{c:UF.c,v:UF.v}:{c:1,v:1};scaleSet(CURVES,ORIG.CURVES,fac);scaleSet(TYPECURVES,ORIG.TYPECURVES,fac);scaleStats(STATS,ORIG.STATS,fac.c);scaleStats(TYPESTATS,ORIG.TYPESTATS,fac.c);
+ UL.c=US?"short tons C ac⁻¹ yr⁻¹":"Mg C ha⁻¹ yr⁻¹";UL.v=US?"ft³ ac⁻¹ yr⁻¹":"m³ ha⁻¹ yr⁻¹";
+ document.querySelectorAll(".u_c").forEach(e=>e.textContent=UL.c);document.querySelectorAll(".u_v").forEach(e=>e.textContent=UL.v);
+ $("l_ht").textContent=US?"Top height (ft)":"Top height (m)";$("ht").step=US?"1":"0.5";$("ht").min=US?"10":"3";$("ht").max=US?"150":"45";
+ $("l_sdi").innerHTML=US?"SDI<sub>max</sub> (trees ac⁻¹, D<sub>r</sub> = 10 in)":"SDI<sub>max</sub> (trees ha⁻¹, D<sub>r</sub> = 25.4 cm)";
+ $("l_n").textContent=US?"Trees per acre":"Trees ha⁻¹";$("l_d").textContent=US?"QMD (in)":"QMD (cm)";$("l_q2").textContent=US?"QMD after thinning, if thinning (in)":"QMD after thinning, if thinning (cm)";
+ $("l_list").textContent=US?"One line per class: DBH (in), trees per acre":"One line per class: DBH (cm), trees ha⁻¹";}
+const hm=()=>US?+$("ht").value*UF.ft:+$("ht").value;          // top height in m for the engine
+const sm=()=>US?+$("sdimax").value/UF.sdi:+$("sdimax").value;  // SDImax in metric for the engine
+const hd=m=>m==null?"this":(US?Math.round(m/UF.ft)+" ft":m+" m");
+const sdiD=x=>US?Math.round(x*UF.sdi):x;
+function setUnits(us,convert){const was=US;US=us;$("imp").checked=us;try{localStorage.setItem("rddst_units",us?"us":"metric");}catch(e){}
+ if(convert&&was!==us){const cv=(id,fn,d)=>{const v=$(id).value;if(v!=="")$(id).value=+fn(+v).toFixed(d);};
+  if(us){cv("ht",x=>x/UF.ft,0);cv("sdimax",x=>x*UF.sdi,0);cv("n",x=>x/2.47105,1);cv("d",x=>x/UF.inch,2);cv("q2",x=>x/UF.inch,2);}
+  else{cv("ht",x=>x*UF.ft,1);cv("sdimax",x=>x/UF.sdi,0);cv("n",x=>x*2.47105,1);cv("d",x=>x*UF.inch,2);cv("q2",x=>x*UF.inch,2);}
+  $("list").value=$("list").value.split(/\n/).map(l=>{const p=l.split(/[,\s]+/).filter(Boolean).map(Number);if(p.length<2)return l;return us?(+(p[0]/UF.inch).toFixed(1))+", "+(+(p[1]/2.47105).toFixed(1)):(+(p[0]*UF.inch).toFixed(1))+", "+(+(p[1]*2.47105).toFixed(1));}).join("\n");}
+ applyUnits();}
 const f=(v,d=2)=>{if(v==null||!isFinite(v))return"n/a";const t=v.toFixed(d);return /^-0\.?0*$/.test(t)?t.slice(1):t;};
 function fill(){const r=$("region");Object.keys(LEV).forEach(k=>r.add(new Option(k,k)));r.value="North";tgFill();}
 function tgFill(){const R=$("region").value,s=$("tg");s.innerHTML="";TG.filter(t=>t.region==R).forEach(t=>s.add(new Option(t.name+" ("+t.code+")",t.code)));const pref={North:120,West:200,Southeast:160,Central:500}[R];s.value=(TG.find(t=>t.region==R&&t.code==pref)||TG.find(t=>t.region==R)).code;tgDefaults();}
-function tgDefaults(){const t=cur();$("sdimax").value=t.sdimax;$("ht").value=t.ht;calc();}
+function tgDefaults(){const t=cur();$("sdimax").value=sdiD(t.sdimax);$("ht").value=US?Math.round(t.ht/UF.ft):t.ht;calc();}
 function cur(){const R=$("region").value,c=+$("tg").value;return TG.find(t=>t.region==R&&t.code==c);}
 function band(h){const R=$("region").value,lv=LEV[R],S=nearestStats(R,h);return{floor:+(lv-0.05).toFixed(3),top:+(lv+0.05).toFixed(3),center:lv,ceil:S?S.ceiling:null,ceilHT:S?S.HT:null};}
 function tkey(){return $("region").value+"|"+$("tg").value;}
@@ -72,7 +98,7 @@ function curveFor(R,key){const T=TYPECURVES[tkey()];return(T&&key.startsWith("Nd
 function interp(R,key,rd,h){const C=curveFor(R,key),H=C.HT,X=C.RD;if(h<H[0]||h>H[H.length-1]||rd<X[0]||rd>X[X.length-1])return null;
  let i=0;while(i<H.length-2&&H[i+1]<h)i++;const h0=H[i],h1=H[i+1],w=(h-h0)/(h1-h0);
  const at=hh=>{const v=C[key][String(hh)];let j=0;while(j<X.length-2&&X[j+1]<rd)j++;const a=v[j],b=v[j+1];if(a==null||b==null)return null;return a+(b-a)*(rd-X[j])/(X[j+1]-X[j]);};
- if(w<=1e-9)return at(h0);if(w>=1-1e-9)return at(h1);const a=at(h0),b=at(h1);if(a==null||b==null)return null;return a*(1-w)+b*w;}
+ if((h-h0)<=0.25)return at(h0);if((h1-h)<=0.25)return at(h1);const a=at(h0),b=at(h1);if(a==null||b==null)return null;return a*(1-w)+b*w;}
 function bandMean(R,key,lo,hi,h){let s=0,k=0;for(let x=lo;x<=hi+1e-9;x+=0.01){const v=interp(R,key,+x.toFixed(2),h);if(v!=null){s+=v;k++;}}return k?s/k:null;}
 function nearestStats(R,h){const S=($("tceil").checked&&TYPESTATS[tkey()]&&R==$("region").value)?TYPESTATS[tkey()]:STATS[R];if(!S)return null;let best=null;S.forEach(s=>{if(best==null||Math.abs(s.HT-h)<Math.abs(best.HT-h))best=s;});return best;}
 function sdiOf(N,D){return N*Math.pow(D/25.4,1.605);}
@@ -81,30 +107,30 @@ function stand(){const imp=$("imp").checked;let sdi=0,n=0,ba=0,s2=0;
  if(mode=="list"){$("list").value.split(/\n/).forEach(l=>{const p=l.split(/[,\s]+/).filter(Boolean).map(Number);if(p.length>=2&&p[0]>0&&p[1]>0){let D=p[0],N=p[1];if(imp){D*=2.54;N*=2.47105;}sdi+=sdiOf(N,D);n+=N;s2+=N*D*D;ba+=N*Math.PI*Math.pow(D/200,2);}});return{sdi,n,qmd:n?Math.sqrt(s2/n):0,ba};}
  return null;}
 const cls=(rd,B)=>rd<B.floor?"below":(B.ceil!=null?(rd>B.ceil?"above ceiling":"in band"):(rd>B.top?"above band":"in band"));
-function calc(){const R=$("region").value,h=+$("ht").value,smax=+$("sdimax").value,B=band(h),t=cur();let st=stand(),rd,rdlo=null,rdhi=null,cal=null;
+function calc(){const R=$("region").value,h=hm(),smax=sm(),B=band(h),t=cur();let st=stand(),rd,rdlo=null,rdhi=null,cal=null;
  if(mode=="map"){const m=Math.min(1,Math.max(0,+$("mapv").value));cal=Math.min(1,Math.max(0,-0.0542+1.05*m));rd=cal;rdlo=Math.max(0,cal-0.31);rdhi=Math.min(1,cal+0.31);}else rd=st.sdi/smax;
  $("k_rd").textContent=f(rd);
  if(mode=="map")$("k_rd2").textContent="calibrated; 95% about "+f(rdlo)+" to "+f(rdhi);
- else{const a=st.sdi/t.p90,b=st.sdi/t.p10;const ca=cls(a,B),cb=cls(b,B);$("k_rd2").textContent="SDImax "+t.p10+" to "+t.p90+" gives "+f(a)+" to "+f(b)+(ca==cb?"":" ("+ca+" to "+cb+")");}
- const g3=x=>String(+(+x).toFixed(3));$("k_band").textContent=g3(B.floor)+(B.ceil!=null?" to "+g3(B.ceil):" +");$("k_band2").textContent=(B.ceil!=null?("ceiling passed the growth test at "+B.ceilHT+" m"):("no ceiling passed the test at "+(B.ceilHT??"this")+" m"))+(TYPECURVES[tkey()]?($("tceil").checked?"; forest type curve and tests":"; forest type net curve, regional band and tests"):"; regional curve");
+ else{const a=st.sdi/t.p90,b=st.sdi/t.p10;const ca=cls(a,B),cb=cls(b,B);$("k_rd2").textContent="SDImax "+sdiD(t.p10)+" to "+sdiD(t.p90)+" gives "+f(a)+" to "+f(b)+(ca==cb?"":" ("+ca+" to "+cb+")");}
+ const g3=x=>String(+(+x).toFixed(3));$("k_band").textContent=g3(B.floor)+(B.ceil!=null?" to "+g3(B.ceil):" +");$("k_band2").textContent=(B.ceil!=null?("ceiling passed the growth test at "+hd(B.ceilHT)):("no ceiling passed the test at "+hd(B.ceilHT)))+(TYPECURVES[tkey()]?($("tceil").checked?"; forest type curve and tests":"; forest type net curve, regional band and tests"):"; regional curve");
  const q=k=>interp(R,k,+rd.toFixed(3),h);const nc=q("Ndc"),nv=q("Ndv");const top=B.ceil??B.top;
- $("k_nc").textContent=f(nc);$("k_nc2").textContent=nc==null?"outside data":"95% "+f(q("Ndc_lo"))+" to "+f(q("Ndc_hi"));$("k_nv").textContent=f(nv);$("k_nv2").textContent=nv==null?"outside data":"95% "+f(q("Ndv_lo"))+" to "+f(q("Ndv_hi"));
+ $("k_nc").textContent=f(nc);$("k_nc2").textContent=nc==null?"outside data":"95% "+f(q("Ndc_lo"))+" to "+f(q("Ndc_hi"));$("k_nv").textContent=f(nv,US?1:2);$("k_nv2").textContent=nv==null?"outside data":"95% "+f(q("Ndv_lo"),US?1:2)+" to "+f(q("Ndv_hi"),US?1:2);
  const bnc=bandMean(R,"Ndc",B.floor,top,h),bnv=bandMean(R,"Ndv",B.floor,top,h),S=nearestStats(R,h);let s=$("status"),msg,cls_;
- const ftxt=S?(" At "+S.HT+" m the floor test reads: "+S.floor_test+" (net carbon "+f(S.floor_contrast,3)+", 95% "+f(S.floor_lo,3)+" to "+f(S.floor_hi,3)+", floor minus 0.10 below it)."):"";
+ const ftxt=S?(" At "+hd(S.HT)+" the floor test reads: "+S.floor_test+" (net carbon "+f(S.floor_contrast,3)+", 95% "+f(S.floor_lo,3)+" to "+f(S.floor_hi,3)+", floor minus 0.10 below it)."):"";
  const q2r=+$("q2").value;const q2=q2r?($("imp").checked?q2r*2.54:q2r):(st?st.qmd:0);
- const resid=(target)=>{if(!st)return"";const sdiT=target*smax;const nT=sdiT/Math.pow(q2/25.4,1.605);return " Residual SDI "+Math.round(sdiT)+" ha⁻¹: about "+Math.round(nT)+" trees ha⁻¹ at a post-thin QMD of "+f(q2,1)+" cm ("+f(nT*Math.PI*Math.pow(q2/200,2),1)+" m² ha⁻¹).";};
+ const resid=(target)=>{if(!st)return"";const sdiT=target*smax;const nT=sdiT/Math.pow(q2/25.4,1.605);const ba=nT*Math.PI*Math.pow(q2/200,2);return US?(" Residual SDI "+Math.round(sdiT*UF.sdi)+" ac⁻¹: about "+Math.round(nT/2.47105)+" trees per acre at a post-thin QMD of "+f(q2/UF.inch,1)+" in ("+f(ba*4.356,0)+" ft² ac⁻¹)."):(" Residual SDI "+Math.round(sdiT)+" ha⁻¹: about "+Math.round(nT)+" trees ha⁻¹ at a post-thin QMD of "+f(q2,1)+" cm ("+f(ba,1)+" m² ha⁻¹).");};
  if(mode=="map"){cls_="st-na";const c=MAPCONF[cls(rd,{floor:0.435,top:0.535,ceil:null})];
    msg="Map estimate only: no status or target. "+(R=="North"&&c?("In Maine, when the calibrated map put a plot "+cls(rd,{floor:0.435,top:0.535,ceil:null})+", the field plot was below the band "+c.below+"%, in it "+c.in+"%, above it "+c.above+"% of the time."):"Map reliability was measured in Maine only.")+" Cruise the stand.";}
  else if(nc==null){cls_="st-na";msg="Outside the data at this height and relative density. No estimate.";}
- else if(rd<B.floor){cls_="st-below";msg="Below the floor. Net carbon growth is "+f(bnc-nc)+" Mg C ha⁻¹ yr⁻¹ ("+f(bnv-nv)+" m³ ha⁻¹ yr⁻¹) under the band mean at this height. Let it grow."+ftxt;}
+ else if(rd<B.floor){cls_="st-below";msg="Below the floor. Net carbon growth is "+f(bnc-nc)+" "+UL.c+" ("+f(bnv-nv,1)+" "+UL.v+") under the band mean at this height. Let it grow."+ftxt;}
  else if(B.ceil!=null&&rd>B.ceil){cls_="st-above";const pk=(S&&S.rd_max!=null)?S.rd_max:B.center;const tgt=Math.min(B.ceil,Math.max(B.floor,pk));const nt=interp(R,"Ndc",tgt,h);
-   msg="Above the tested ceiling. Provisional thin-to target: relative density "+f(tgt)+" (the net growth peak at this height, kept within the band limits). Expected net carbon growth at the target is "+(nt!=null?f(nt-nc)+" Mg C ha⁻¹ yr⁻¹ "+(nt>=nc?"more":"less")+" than now":"n/a")+"."+resid(tgt);}
- else if(B.ceil==null&&rd>B.top){cls_="st-noceil";const nf=interp(R,"Ndc",B.floor,h);const dlt=nf!=null?(f(nf-nc)+" Mg C ha⁻¹ yr⁻¹"+(nc>0.1?" ("+f(100*(nf/nc-1),0)+"%)":"")):"n/a";const nchi=q("Ndc_hi");
-   if(nchi!=null&&bnc!=null&&nchi<bnc){cls_="st-above";msg="Above the band. No ceiling could be tested at this height, but this stand's net growth is below the band mean by "+f(bnc-nc)+" Mg C ha⁻¹ yr⁻¹ (its upper 95% bound is below the band mean). Thinning to the band center would change expected net carbon growth by "+(interp(R,"Ndc",B.center,h)!=null?f(interp(R,"Ndc",B.center,h)-nc):"n/a")+" Mg C ha⁻¹ yr⁻¹."+resid(B.center)+ftxt;}
+   msg="Above the tested ceiling. Provisional thin-to target: relative density "+f(tgt)+" (the net growth peak at this height, kept within the band limits). Expected net carbon growth at the target is "+(nt!=null?f(nt-nc)+" "+UL.c+" "+(nt>=nc?"more":"less")+" than now":"n/a")+"."+resid(tgt);}
+ else if(B.ceil==null&&rd>B.top){cls_="st-noceil";const nf=interp(R,"Ndc",B.floor,h);const dlt=nf!=null?(f(nf-nc)+" "+UL.c+""+(nc>0.1?" ("+f(100*(nf/nc-1),0)+"%)":"")):"n/a";const nchi=q("Ndc_hi");
+   if(nchi!=null&&bnc!=null&&nchi<bnc){cls_="st-above";msg="Above the band. No ceiling could be tested at this height, but this stand's net growth is below the band mean by "+f(bnc-nc)+" "+UL.c+" (its upper 95% bound is below the band mean). Thinning to the band center would change expected net carbon growth by "+(interp(R,"Ndc",B.center,h)!=null?f(interp(R,"Ndc",B.center,h)-nc):"n/a")+" "+UL.c+"."+resid(B.center)+ftxt;}
    else msg="Above the band, with no growth penalty measured here at this height, so no density target is supported. Thinning to the floor would change expected net carbon growth by "+dlt+" relative to this stand."+resid(B.floor)+ftxt;}
  else{cls_="st-in";msg="Inside the band."+ftxt;}
  s.className="status "+cls_;s.textContent=msg;
- const rows=[["Net carbon growth, direct fit (Mg C ha⁻¹ yr⁻¹)","Ndc",2],["Gross carbon growth (Mg C ha⁻¹ yr⁻¹)","Gc",2],["Mortality without natural disturbance (Mg C ha⁻¹ yr⁻¹) ⚑","Mbc",2],["Expected loss to natural disturbance (Mg C ha⁻¹ yr⁻¹)","Dcc",3],["Net merchantable volume growth (m³ ha⁻¹ yr⁻¹)","Ndv",2],["Annual natural disturbance hazard (%)","h1",1]];
+ const rows=[["Net carbon growth, direct fit ("+UL.c+")","Ndc",2],["Gross carbon growth ("+UL.c+")","Gc",2],["Mortality without natural disturbance ("+UL.c+") ⚑","Mbc",2],["Expected loss to natural disturbance ("+UL.c+")","Dcc",3],["Net merchantable volume growth ("+UL.v+")","Ndv",US?1:2],["Annual natural disturbance hazard (%)","h1",1]];
  $("tbl").innerHTML=rows.map(([lab,k,d])=>{const sc=k=="h1"?100:1;const a=q(k),lo=q(k+"_lo"),hi=q(k+"_hi"),bm=bandMean(R,k,B.floor,top,h);return `<tr><td>${lab}</td><td>${a==null?"n/a":f(a*sc,d)+" ("+f(lo*sc,d)+" to "+f(hi*sc,d)+")"}</td><td>${bm==null?"n/a":f(bm*sc,d)}</td></tr>`}).join("");
  draw(R,h,rd,B,rdlo,rdhi);}
 function draw(R,h,rd,B,rdlo,rdhi){const W=760,H=300,L=58,Rt=20,T=18,Bm=40,X=CURVES[R].RD;const x0=0.05,x1=1.0;const xs=x=>L+(x-x0)/(x1-x0)*(W-L-Rt);
@@ -116,15 +142,16 @@ function draw(R,h,rd,B,rdlo,rdhi){const W=760,H=300,L=58,Rt=20,T=18,Bm=40,X=CURV
  g+=`<path d="M${pts.map(p=>xs(p.x)+","+ys(p.hi)).join("L")}L${pts.slice().reverse().map(p=>xs(p.x)+","+ys(p.lo)).join("L")}Z" fill="#16808a" opacity=".22"/>`;
  g+=`<path d="M${pts.map(p=>xs(p.x)+","+ys(p.y)).join("L")}" fill="none" stroke="#16808a" stroke-width="2.5"/>`;
  for(let t=0.1;t<=1.0001;t+=0.1)g+=`<line x1="${xs(t)}" x2="${xs(t)}" y1="${H-Bm}" y2="${H-Bm+5}" stroke="#1d2b36"/><text x="${xs(t)}" y="${H-Bm+18}" font-size="12" text-anchor="middle">${t.toFixed(1)}</text>`;
- const step=(ymax-ymin)>2?0.5:0.25;for(let v=Math.ceil(ymin/step)*step;v<=ymax;v+=step)g+=`<line x1="${L-5}" x2="${L}" y1="${ys(v)}" y2="${ys(v)}" stroke="#1d2b36"/><text x="${L-8}" y="${ys(v)+4}" font-size="12" text-anchor="end">${v.toFixed(2)}</text>`;
+ const rg=ymax-ymin,step=rg>2?0.5:rg>1?0.25:rg>0.5?0.1:0.05;for(let v=Math.ceil(ymin/step)*step;v<=ymax;v+=step)g+=`<line x1="${L-5}" x2="${L}" y1="${ys(v)}" y2="${ys(v)}" stroke="#1d2b36"/><text x="${L-8}" y="${ys(v)+4}" font-size="12" text-anchor="end">${v.toFixed(2)}</text>`;
  g+=`<line x1="${L}" x2="${W-Rt}" y1="${H-Bm}" y2="${H-Bm}" stroke="#1d2b36"/><line x1="${L}" x2="${L}" y1="${T}" y2="${H-Bm}" stroke="#1d2b36"/>`;
- g+=`<text x="${(L+W-Rt)/2}" y="${H-6}" font-size="13" text-anchor="middle" font-weight="700">Relative density at the start of the interval</text><text transform="translate(14,${(T+H-Bm)/2}) rotate(-90)" font-size="13" text-anchor="middle" font-weight="700">Net growth (Mg C ha⁻¹ yr⁻¹)</text>`;
+ g+=`<text x="${(L+W-Rt)/2}" y="${H-6}" font-size="13" text-anchor="middle" font-weight="700">Relative density at the start of the interval</text><text transform="translate(14,${(T+H-Bm)/2}) rotate(-90)" font-size="13" text-anchor="middle" font-weight="700">Net growth (${UL.c})</text>`;
  if(rd>=x0&&rd<=x1){const yv=interp(R,"Ndc",rd,h);g+=`<line x1="${xs(rd)}" x2="${xs(rd)}" y1="${T}" y2="${H-Bm}" stroke="#b5413a" stroke-dasharray="4 3" stroke-width="1.8"/>`;if(yv!=null)g+=`<circle cx="${xs(rd)}" cy="${ys(yv)}" r="6" fill="#b5413a"/>`;g+=`<text x="${xs(rd)+6}" y="${T+56}" font-size="12" fill="#b5413a" font-weight="700">this stand</text>`;}
- g+=`<text x="${W-Rt}" y="${H-Bm-8}" font-size="11.5" text-anchor="end" fill="#2e7d4f">band ${B.floor.toFixed(3)} to ${(B.ceil??B.top).toFixed(3)}; top height ${h} m</text>`;$("chart").innerHTML=g;}
+ g+=`<text x="${W-Rt}" y="${H-Bm-8}" font-size="11.5" text-anchor="end" fill="#2e7d4f">band ${B.floor.toFixed(3)} to ${(B.ceil??B.top).toFixed(3)}; top height ${hd(h)}</text>`;$("chart").innerHTML=g;}
 $("region").addEventListener("change",tgFill);$("tg").addEventListener("change",tgDefaults);
 ["ht","sdimax","n","d","list","mapv","imp","q2"].forEach(id=>$(id).addEventListener("input",calc));$("tceil").addEventListener("change",calc);
 const setMode=m=>{mode=m;["sum","list","map"].forEach(k=>{$("p_"+k).hidden=k!=m;$("m_"+k).classList.toggle("on",k==m)});calc();};
 $("m_sum").onclick=()=>setMode("sum");$("m_list").onclick=()=>setMode("list");$("m_map").onclick=()=>setMode("map");
-$("imp").addEventListener("change",()=>{const i=$("imp").checked;$("l_n").textContent=i?"Trees per acre":"Trees ha⁻¹";$("l_d").textContent=i?"QMD (in)":"QMD (cm)";$("l_q2").textContent=i?"QMD after thinning, if thinning (in)":"QMD after thinning, if thinning (cm)";calc();});
-fill();
+$("units").addEventListener("change",()=>{setUnits($("units").value=="us",true);calc();});
+snap();let u0="us";try{u0=localStorage.getItem("rddst_units")||"us";}catch(e){}
+$("units").value=u0;setUnits(u0=="us",false);fill();
 </script></body></html>

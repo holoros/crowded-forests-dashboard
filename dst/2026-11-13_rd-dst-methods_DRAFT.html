@@ -282,9 +282,19 @@ and disturbance are regional, so net carbon and net volume can disagree
 in sign for a type such as Douglas-fir. By default the band, ceiling and
 floor tests are the regional ones; forest type ceilings and tests, which
 rest on smaller samples, apply only when the user ticks the forest type
-box. The calculator interpolates on the height grid and, at a grid
-height, reads that height alone, so a curve’s support at the next lower
-height does not block an estimate.</p>
+box. The calculator interpolates on the height grid and, within 0.25 m
+(about 0.8 ft) of a grid height, reads that height alone, so a curve’s
+support at the next lower height does not block an estimate. Results
+show in US customary units by default, with a metric option: top height
+in feet, trees per acre, QMD in inches, basal area in ft² ac⁻¹, carbon
+in short tons C ac⁻¹ yr⁻¹ (Mg C ha⁻¹ yr⁻¹ × 0.44609) and net
+merchantable volume in ft³ ac⁻¹ yr⁻¹ (m³ ha⁻¹ yr⁻¹ × 14.2913). SDI and
+<em>SDI</em>ₘₐₓ in US units use trees per acre and a 10 inch reference
+diameter, so they are the metric values × 0.404686 and relative density
+is unchanged. These are definitional conversions; volume is not
+converted to cords or board feet, which depend on project-specific
+merchandizing conventions and log rules. The engine itself runs in
+metric units.</p>
 <p>The map pre-fill was measured directly at 1,541 held out Maine plot
 visits on 967 plots with true locations: r = 0.53, raw RMSE 0.164 and
 bias 0.022, within ±0.05 of the field value 22% of the time and within
@@ -383,16 +393,18 @@ for the record).</p>
 November revision)</h2>
 <p>Added: the Central 30 m ceiling, which the tool already applied; the
 calculator’s forest type toggle and its default to regional tests; the
-height lookup rule; the note that net volume stays regional; a
-provenance DATA file for nine values that had been printed but not
-saved. Changed: national cost 0.037 to 0.036; Southeast forgone growth
-lower bound 42% to 41%; raw map agreement within ±0.10 from 45% to 44%;
-North ESI decline in the upper tercile 0.02 to 0.01; the Douglas-fir
-example height 24 to 25 m, matching the curve row; the confounding
-checks now say which height each is read at; the Central calibrated RD
-result now gives the replicate interval instead of “most replicates”;
-the hazard range is stated at the band center; the decomposition
-limitation now gives the range across heights. Removed: nothing.</p>
+height lookup rule (with a 0.25 m tolerance at grid heights); US
+customary units in the calculator, shown by default with a metric
+option; the note that net volume stays regional; a provenance DATA file
+for nine values that had been printed but not saved. Changed: national
+cost 0.037 to 0.036; Southeast forgone growth lower bound 42% to 41%;
+raw map agreement within ±0.10 from 45% to 44%; North ESI decline in the
+upper tercile 0.02 to 0.01; the Douglas-fir example height 24 to 25 m,
+matching the curve row; the confounding checks now say which height each
+is read at; the Central calibrated RD result now gives the replicate
+interval instead of “most replicates”; the hazard range is stated at the
+band center; the decomposition limitation now gives the range across
+heights. Removed: nothing.</p>
 <h2 id="files">Files</h2>
 <p>Scripts (projects/rd-growth-subplot/scripts and the GitHub
 repository): engine v1 and type group scripts;
