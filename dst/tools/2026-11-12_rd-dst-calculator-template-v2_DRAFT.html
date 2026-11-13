@@ -46,7 +46,7 @@ svg text{font-family:inherit}
 <svg id="chart" viewBox="0 0 760 300" width="100%"></svg>
 <table><thead><tr><th>Quantity</th><th>At this stand</th><th>Mean inside band</th></tr></thead><tbody id="tbl"></tbody></table>
 <p class="note"><span class="flag">Mortality flag.</span> Mortality on intervals without natural disturbance does not rise steadily with crowding at fixed top height, against self-thinning expectations; where it peaks differs by region. It is shown as observed and no mortality cost is credited above the band. Natural disturbance here means insects, disease, fire, animals and weather (FIA codes 10 to 54).</p>
-<p class="note">Curves are regional at the stand's top height. The forest type group sets only the default SDI<sub>max</sub> and height; type ceilings did not pass the replicate test and are not applied.</p>
+<p class="note">Net growth uses the forest type group's own curve and height-specific tests where the type has at least 6,000 intervals in the region, and the regional curve otherwise; the label under the band says which. Gross growth, mortality and disturbance are regional. The type group also sets the default SDI<sub>max</sub> and height.</p>
 <p class="note">Thinning trials: in the CFRU Commercial Thinning Research Network, survivor basal area growth in the North band exceeded the class below it by 0.16 m² ha⁻¹ yr⁻¹ (0.03 to 0.29), so the North floor holds there; above the band the trial could not tell (it detects differences of about 0.19). In New Brunswick partial cut plots denser classes grew more, and verdicts change with SDI<sub>max</sub>. Targets are provisional, and curves come from plots with no harvest between visits, not thinning responses.</p>
 </div>
 </section></main>
@@ -54,7 +54,9 @@ svg text{font-family:inherit}
 const CURVES=__CURVES__;
 const STATS=__STATS__;   // per region and top height: floor test and forgone growth at the floor (engine v2, direct net carbon)
 const CEIL=__CEIL__;     // regional reference-height ceilings (kept for reference; the calculator uses the per-height ceilings in STATS)
-const MAPCONF=__MAPCONF__; // Maine map band-class reliability (North band)
+const MAPCONF=__MAPCONF__;
+const TYPECURVES=__TYPECURVES__; // region|type group: direct net carbon curve by height (types with >= 6,000 intervals)
+const TYPESTATS=__TYPESTATS__;  // region|type group: per height floor and ceiling tests // Maine map band-class reliability (North band)
 const LEV={North:0.485,Central:0.400,Southeast:0.385,West:0.405};
 const TG=__TG__;
 const $=id=>document.getElementById(id);let mode="sum";
@@ -64,12 +66,14 @@ function tgFill(){const R=$("region").value,s=$("tg");s.innerHTML="";TG.filter(t
 function tgDefaults(){const t=cur();$("sdimax").value=t.sdimax;$("ht").value=t.ht;calc();}
 function cur(){const R=$("region").value,c=+$("tg").value;return TG.find(t=>t.region==R&&t.code==c);}
 function band(h){const R=$("region").value,lv=LEV[R],S=nearestStats(R,h);return{floor:+(lv-0.05).toFixed(3),top:+(lv+0.05).toFixed(3),center:lv,ceil:S?S.ceiling:null,ceilHT:S?S.HT:null};}
-function interp(R,key,rd,h){const C=CURVES[R],H=C.HT,X=C.RD;if(h<H[0]||h>H[H.length-1]||rd<X[0]||rd>X[X.length-1])return null;
+function tkey(){return $("region").value+"|"+$("tg").value;}
+function curveFor(R,key){const T=TYPECURVES[tkey()];return(T&&key.startsWith("Ndc")&&R==$("region").value)?T:CURVES[R];}
+function interp(R,key,rd,h){const C=curveFor(R,key),H=C.HT,X=C.RD;if(h<H[0]||h>H[H.length-1]||rd<X[0]||rd>X[X.length-1])return null;
  let i=0;while(i<H.length-2&&H[i+1]<h)i++;const h0=H[i],h1=H[i+1],w=(h-h0)/(h1-h0);
  const at=hh=>{const v=C[key][String(hh)];let j=0;while(j<X.length-2&&X[j+1]<rd)j++;const a=v[j],b=v[j+1];if(a==null||b==null)return null;return a+(b-a)*(rd-X[j])/(X[j+1]-X[j]);};
  const a=at(h0),b=at(h1);if(a==null||b==null)return null;return a*(1-w)+b*w;}
 function bandMean(R,key,lo,hi,h){let s=0,k=0;for(let x=lo;x<=hi+1e-9;x+=0.01){const v=interp(R,key,+x.toFixed(2),h);if(v!=null){s+=v;k++;}}return k?s/k:null;}
-function nearestStats(R,h){const S=STATS[R];if(!S)return null;let best=null;S.forEach(s=>{if(best==null||Math.abs(s.HT-h)<Math.abs(best.HT-h))best=s;});return best;}
+function nearestStats(R,h){const S=(TYPESTATS[tkey()]&&R==$("region").value)?TYPESTATS[tkey()]:STATS[R];if(!S)return null;let best=null;S.forEach(s=>{if(best==null||Math.abs(s.HT-h)<Math.abs(best.HT-h))best=s;});return best;}
 function sdiOf(N,D){return N*Math.pow(D/25.4,1.605);}
 function stand(){const imp=$("imp").checked;let sdi=0,n=0,ba=0,s2=0;
  if(mode=="sum"){let N=+$("n").value,D=+$("d").value;if(imp){N*=2.47105;D*=2.54;}return{sdi:sdiOf(N,D),n:N,qmd:D,ba:N*Math.PI*Math.pow(D/200,2)};}
@@ -81,7 +85,7 @@ function calc(){const R=$("region").value,h=+$("ht").value,smax=+$("sdimax").val
  $("k_rd").textContent=f(rd);
  if(mode=="map")$("k_rd2").textContent="calibrated; 95% about "+f(rdlo)+" to "+f(rdhi);
  else{const a=st.sdi/t.p90,b=st.sdi/t.p10;const ca=cls(a,B),cb=cls(b,B);$("k_rd2").textContent="SDImax "+t.p10+" to "+t.p90+" gives "+f(a)+" to "+f(b)+(ca==cb?"":" ("+ca+" to "+cb+")");}
- $("k_band").textContent=f(B.floor)+(B.ceil!=null?" to "+f(B.ceil):" +");$("k_band2").textContent=B.ceil!=null?("ceiling passed the growth test at "+B.ceilHT+" m"):("no ceiling passed the test at "+(B.ceilHT??"this")+" m");
+ $("k_band").textContent=f(B.floor)+(B.ceil!=null?" to "+f(B.ceil):" +");$("k_band2").textContent=(B.ceil!=null?("ceiling passed the growth test at "+B.ceilHT+" m"):("no ceiling passed the test at "+(B.ceilHT??"this")+" m"))+(TYPECURVES[tkey()]?"; forest type curve":"; regional curve");
  const q=k=>interp(R,k,+rd.toFixed(3),h);const nc=q("Ndc"),nv=q("Ndv");const top=B.ceil??B.top;
  $("k_nc").textContent=f(nc);$("k_nc2").textContent=nc==null?"outside data":"95% "+f(q("Ndc_lo"))+" to "+f(q("Ndc_hi"));$("k_nv").textContent=f(nv);$("k_nv2").textContent=nv==null?"outside data":"95% "+f(q("Ndv_lo"))+" to "+f(q("Ndv_hi"));
  const bnc=bandMean(R,"Ndc",B.floor,top,h),bnv=bandMean(R,"Ndv",B.floor,top,h),S=nearestStats(R,h);let s=$("status"),msg,cls_;

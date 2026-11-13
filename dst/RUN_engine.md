@@ -12,3 +12,8 @@ Inputs: dst_engine_input_DATA.rds md5 184601b2e0eb706c9bdfbf2bd279ec02; dst_natd
 Runs: engine v2 (first run failed after the regional fits on a Tweedie table bug; rerun with per region checkpoints), checks script (confounding), lag check (tolerant previous visit match; the first lag attempt matched every interval to itself and was killed).
 Row shuffle: identical point estimates in all four regions.
 Outputs: output_v2/ (aggregates only). GitHub: this branch. Zenodo: not applicable (draft decision support build).
+
+## Engine v2 follow-up checks (12 November 2026, evening)
+2026-11-12_rd-dst-engine-v2-esi-ipw_DRAFT.R (md5 80ed7e71...): ESI v6r 1 km at public FIA coordinates (66,326 of 85,821 plots) and harvest attrition weights (dst_ipw_DATA.rds md5 e62b6a7c..., from te_pairs_ipw.rds), B = 100, run with the geos activation (terra).
+2026-11-12_rd-dst-engine-v2-type_DRAFT.R (md5 c832019a...): direct net curves by region x forest type group (13 groups, >= 6,000 intervals), full height grid, B = 100, shuffle identical in all 13.
+Outputs: output_v2/dst_engine2_esi_ipw_DATA.csv, dst_engine2_esi_summary_DATA.csv, dst_engine2_type_curves_DATA.csv, dst_engine2_type_stats_DATA.csv (aggregates only).
